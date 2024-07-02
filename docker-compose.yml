@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    env_file:
+      - ./database/.env
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./database/config.cnf:/etc/mysql/conf.d/config.cnf
+    ports:
+      - "3306:3306"
+    command: '--default-authentication-plugin=mysql_native_password'
+
+  server:
+    image: devdiver/vacation_promotion_server:latest
+    container_name: vacation_promotion_server
+    depends_on:
+      - mariadb
+    volumes:
+      - ./config:/app/backend/config
+      - ./database:/app/backend/database
+      - ./dist:/app/front_web/dist
+    ports:
+      - "3000:3000"
+
+  client:
+    image: devdiver/vacation_promotion_client:latest
+    container_name: vacation_promotion_client
+    volumes:
+      - ./dist:/app/front_web/dist
+
+volumes:
+  mariadb_data:
