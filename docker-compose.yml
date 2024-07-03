@@ -2,16 +2,17 @@ version: '3.8'
 
 services:
   mariadb:
-    image: mariadb:latest
+    image: mariadb:10.2
     container_name: mariadb
     env_file:
       - ./database/.env
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ./database/my.cnf:/etc/mysql/my.cnf
+      - ./database/conf.d:/etc/mysql/conf.d
+      - ./database/initd.d:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-    command: '--default-authentication-plugin=mysql_native_password'
+    entrypoint: ["sh", "-c", "chmod 644 /etc/mysql/conf.d/*.cnf && docker-entrypoint.sh mysqld"]
     restart: always
 
   server:
@@ -22,18 +23,20 @@ services:
     volumes:
       - ./config:/app/backend/config
       - ./database:/app/backend/database
-      - ./dist:/app/front_web/dist
+      - front_web:/app/dist
     ports:
       - "3000:3000"
     env_file:
       - ./database/.env
+    command: ["./server"]
     restart: always
 
   client:
     image: devdiver/vacation_promotion_client:latest
     container_name: vacation_promotion_client
     volumes:
-      - ./dist:/app/front_web/dist
+      - front_web:/app/front_web/dist
 
 volumes:
   mariadb_data:
+  front_web:
