@@ -28,7 +28,6 @@ services:
       - "3000:3000"
     env_file:
       - ./database/.env
-    command: ["./server"]
     restart: always
 
   client:
