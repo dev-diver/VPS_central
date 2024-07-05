@@ -36,14 +36,14 @@ services:
     volumes:
       - front_web:/app/front_web/dist
 
-  webhook-server:
-    image: devdiver/webhook:latest
-    container_name: webhook_server
-    volumes:
-      - .:/app
-    ports:
-      - "5000:5000"
-    restart: always
+  # webhook-server:
+  #   image: devdiver/webhook:latest
+  #   container_name: webhook_server
+  #   volumes:
+  #     - .:/app
+  #   ports:
+  #     - "5000:5000"
+  #   restart: always
 
 volumes:
   mariadb_data:
