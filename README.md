@@ -1,5 +1,9 @@
 # 설정 파일
 
+````
+sudo snap install docker  #docker compose까지 다운됨
+
+
 ```plaintext
 VPS_CENTRAL/
 ├── config/
@@ -12,18 +16,21 @@ VPS_CENTRAL/
 │   ├── .env        <------
 ├── docker-compose.yml
 └── README.md
-```
+````
 
-* 위 두개 파일만 설정하면 됩니다.
+- 위 두개 파일만 설정하면 됩니다.
 
 ### /config/.env
-* jwt를 암호화하기 위한 secret key를 설정합니다.
+
+- jwt를 암호화하기 위한 secret key를 설정합니다.
+
 ```env
 JWT_SECRET=토큰비밀번호
 ```
 
 ### /database/.env
-* mysql database설정과, go server에서 접속하기 위한 설정입니다.
+
+- mysql database설정과, go server에서 접속하기 위한 설정입니다.
 
 ```env
 MYSQL_ROOT_PASSWORD=루트비밀번호

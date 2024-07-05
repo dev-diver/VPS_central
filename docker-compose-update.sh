@@ -15,11 +15,9 @@ git pull origin main
 
 # 클라이언트, 서버 중지 및 제거
 docker-compose stop client server
-
-# 기존 볼륨 데이터 제거
-VOLUME_NAME="${PROJECT_NAME}_front_web"
-VOLUME_PATH=$(docker volume inspect --format '{{ .Mountpoint }}' $VOLUME_NAME)
-sudo rm -rf "$VOLUME_PATH"/*
+# 기존 볼륨 제거
+echo "기존 front_web 볼륨 제거"
+docker volume rm "${PROJECT_DIR}_front_web"
 
 echo "docker compose pull!"
 docker-compose pull || { echo "docker-compose pull 실패"; exit 1; }
