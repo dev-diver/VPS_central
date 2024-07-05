@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mariadb:
-    image: mariadb:latest
+    image: mariadb:10.2
     container_name: mariadb
     env_file:
       - ./database/.env
@@ -12,7 +12,7 @@ services:
       - ./database/initd.d:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-    entrypoint: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql && chmod 644 /etc/mysql/conf.d/*.cnf && docker-entrypoint.sh mariadb"]
+    entrypoint: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql && chmod 644 /etc/mysql/conf.d/*.cnf && docker-entrypoint.sh mysqld"]
     restart: always
 
   server:
