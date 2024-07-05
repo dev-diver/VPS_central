@@ -12,13 +12,13 @@ def webhook():
         webhook_data = request.get_json()
         print("Webhook received:", json.dumps(webhook_data, indent=4))
         
-        # 조건을 만족하지 않으면 조기 리턴
-        if not webhook_data or 'push_data' not in webhook_data:
-            return 'Ignored', 200
+        # # 조건을 만족하지 않으면 조기 리턴
+        # if not webhook_data or 'push_data' not in webhook_data:
+        #     return 'Ignored', 200
 
-        push_data = webhook_data['push_data']
-        if 'tag' not in push_data or not push_data['tag'] or 'media_type' not in push_data:
-            return 'Ignored', 200
+        # push_data = webhook_data['push_data']
+        # if 'tag' not in push_data or not push_data['tag'] or 'media_type' not in push_data:
+        #     return 'Ignored', 200
 
         current_dir = os.path.dirname(os.path.realpath(__file__))
         root_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
