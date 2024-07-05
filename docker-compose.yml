@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mariadb:
-    image: mariadb:10.2
+    image: mariadb:latest
     container_name: mariadb
     env_file:
       - ./database/.env
