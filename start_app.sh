@@ -12,6 +12,6 @@ PROJECT_DIR=$(dirname $(realpath $0))
 nohup python3 "$PROJECT_DIR/app/webhook_server.py" > "$PROJECT_DIR/app/webhook_server.log" 2>&1 &
 
 # Docker Compose 실행
-sh "$PROJECT_DIR/docker-compose-up.sh"
+sh "$PROJECT_DIR/docker-compose-update.sh"
 
 echo "Flask 애플리케이션과 Docker Compose가 실행되었습니다."
