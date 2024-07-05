@@ -9,6 +9,8 @@ PROJECT_DIR=$(dirname $(realpath $0))
 
 cd $PROJECT_DIR
 
+git pull origin main
+
 docker-compose pull
 
 docker-compose up -d
