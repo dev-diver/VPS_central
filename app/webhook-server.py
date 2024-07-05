@@ -12,30 +12,21 @@ def webhook():
         root_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
         script_path = os.path.join(root_dir, 'docker-compose-update.sh')
         # Run the script to pull and restart the containers
-        log_file_path = os.path.join(root_dir, 'update.log')
         
-        with open(log_file_path, 'a') as log_file:
-            log_file.write(f"Webhook triggered at {current_dir}\n")
-            print(f"Webhook triggered at {current_dir}")
-            
-            # Run the script to pull and restart the containers
-            process = subprocess.run(['sh', script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            
-            # Output stdout and stderr to log file
-            log_file.write(process.stdout)
-            log_file.write(process.stderr)
-            
-            # Output stdout and stderr to console
-            print(process.stdout)
-            print(process.stderr)
-            
-            # Check for errors
-            if process.returncode != 0:
-                log_file.write(f"Script failed with return code {process.returncode}\n")
-                print(f"Script failed with return code {process.returncode}")
-            else:
-                log_file.write("Script executed successfully\n")
-                print("Script executed successfully")
+        print(f"Webhook triggered at {current_dir}")
+        
+        # Run the script to pull and restart the containers
+        process = subprocess.run(['sh', script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+        # Output stdout and stderr to console
+        print(process.stdout)
+        print(process.stderr)
+        
+        # Check for errors
+        if process.returncode != 0:
+            print(f"Script failed with return code {process.returncode}")
+        else:
+            print("Script executed successfully")
 
         return 'Success', 200
     else:
