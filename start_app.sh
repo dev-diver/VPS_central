@@ -6,15 +6,6 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-# 프로젝트 디렉토리 설정
-PROJECT_DIR=$(dirname $(realpath $0))
-
-VIRTUAL_ENV_DIR="$PROJECT_DIR/venv"
-if [ ! -d "$VIRTUAL_ENV_DIR" ]; then
-  python3 -m venv "$VIRTUAL_ENV_DIR"
-fi
-source "$VIRTUAL_ENV_DIR/bin/activate"
-
 # 필요한 패키지 설치
 pip install flask
 
