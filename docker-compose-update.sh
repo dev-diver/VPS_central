@@ -14,7 +14,8 @@ echo "git pull"
 git pull origin main
 
 # 클라이언트, 서버 중지 및 제거
-docker-compose down
+docker-compose stop client server
+docker-compose rm -f client server
 # 기존 볼륨 제거
 PROJECT_NAME=$(basename "$PROJECT_DIR" | tr '[:upper:]' '[:lower:]')
 VOLUME_NAME="${PROJECT_NAME}_front_web"
