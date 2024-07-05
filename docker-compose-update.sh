@@ -15,7 +15,6 @@ git pull origin main
 
 # 클라이언트, 서버 중지 및 제거
 docker-compose stop client server
-docker-compose rm -f client server
 
 # 기존 볼륨 데이터 제거
 VOLUME_NAME="${PROJECT_NAME}_front_web"
