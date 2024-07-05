@@ -13,7 +13,7 @@ cd $PROJECT_DIR
 echo "git pull"
 git pull origin main
 
-echo "docker compose pull"
+echo "docker compose pull!"
 docker-compose pull
 
 exho "docker compose up"
