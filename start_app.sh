@@ -10,7 +10,7 @@ echo "스크립트 시작"
 PROJECT_DIR=$(dirname $(realpath $0))
 
 echo "Flask 애플리케이션 실행"
-nohup python3 "$PROJECT_DIR/app/webhook_server.py" > "$PROJECT_DIR/app/webhook_server.log" 2>&1 &
+nohup python3 "$PROJECT_DIR/app/webhook-server.py" > "$PROJECT_DIR/app/webhook-server.log" 2>&1 &
 
 echo "Docker Compose 업데이트"
 sh "$PROJECT_DIR/docker-compose-update.sh"
