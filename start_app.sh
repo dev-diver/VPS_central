@@ -6,12 +6,13 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+echo "스크립트 시작"
 PROJECT_DIR=$(dirname $(realpath $0))
 
-# Flask 애플리케이션을 데몬으로 실행
+echo "Flask 애플리케이션 실행"
 nohup python3 "$PROJECT_DIR/app/webhook_server.py" > "$PROJECT_DIR/app/webhook_server.log" 2>&1 &
 
-# Docker Compose 실행
+echo "Docker Compose 업데이트"
 sh "$PROJECT_DIR/docker-compose-update.sh"
 
 echo "Flask 애플리케이션과 Docker Compose가 실행되었습니다."
