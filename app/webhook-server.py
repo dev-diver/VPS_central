@@ -1,12 +1,16 @@
 from flask import Flask, request
 import subprocess
 import os
+import json
 
 app = Flask(__name__)
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
     if request.method == 'POST':
+
+        webhook_data = request.get_json()
+        print("Webhook received:", json.dumps(webhook_data, indent=4))
         # 현재 파이썬 파일의 디렉토리를 구함
         current_dir = os.path.dirname(os.path.realpath(__file__))
         root_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
