@@ -6,6 +6,8 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
+PROJECT_DIR=$(dirname $(realpath $0))
+
 # Flask 애플리케이션을 데몬으로 실행
 nohup python3 "$PROJECT_DIR/app/webhook_server.py" > "$PROJECT_DIR/app/webhook_server.log" 2>&1 &
 
