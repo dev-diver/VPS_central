@@ -1,7 +1,10 @@
 # 설정 파일
 
 ````
+sudo apt update
 sudo snap install docker  #docker compose까지 다운됨
+sudo apt install python3-pip
+sudo pip3 install flask
 
 
 ```plaintext
