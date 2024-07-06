@@ -22,9 +22,6 @@ docker-compose stop client || { echo "docker-compose stop 실패"; exit 1; }
 echo "docker client rm"
 docker-compose rm -f client || { echo "docker-compose rm 실패"; exit 1; }
 
-echo "docker client down"
-docker-compose down client || { echo "docker-compose down 실패"; exit 1; }
-
 echo "docker compose up"
 docker-compose up -d  || { echo "docker-compose up 실패"; exit 1; }
 
