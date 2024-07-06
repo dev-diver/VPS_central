@@ -36,7 +36,7 @@ services:
     container_name: vacation_promotion_client
     volumes:
       - ./dist:/dist
-    command: ["sh", "-c", "rm -rf /dist && mkdir /dist && mv /app/front_web/dist/* /dist && bin/true"]
+    command: ["sh", "-c", "rm -rf /dist/* && mv /app/front_web/dist/* /dist && bin/true"]
 
   # webhook-server:
   #   image: devdiver/webhook:latest
