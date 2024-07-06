@@ -16,12 +16,14 @@ git pull origin main
 echo "docker compose pull"
 docker-compose pull || { echo "docker-compose pull 실패"; exit 1; }
 
-# # 기존 볼륨 제거
-# PROJECT_NAME=$(basename "$PROJECT_DIR" | tr '[:upper:]' '[:lower:]')
-# VOLUME_NAME="${PROJECT_NAME}_front_web"
+echo "docker client stop"
+docker-compose stop client || { echo "docker-compose stop 실패"; exit 1; }
 
-# echo "기존 front_web 볼륨 제거: $VOLUME_NAME"
-# docker volume rm  -f "$VOLUME_NAME"
+echo "docker client rm"
+docker-compose rm -f client || { echo "docker-compose rm 실패"; exit 1; }
+
+echo "docker client down"
+docker-compose down client || { echo "docker-compose down 실패"; exit 1; }
 
 echo "docker compose up"
 docker-compose up -d  || { echo "docker-compose up 실패"; exit 1; }
