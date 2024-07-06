@@ -24,7 +24,7 @@ services:
     volumes:
       - ./config:/app/backend/config
       - ./database:/app/backend/database
-      - ./dist:/app/dist
+      - front_app:/app/dist
     ports:
       - "3000:3000"
     env_file:
@@ -35,7 +35,7 @@ services:
     image: devdiver/vacation_promotion_client:latest
     container_name: vacation_promotion_client
     volumes:
-      - ./dist:/dist
+      - front_app:/dist
     command: ["sh", "-c", "rm -rf /dist/* && mv /app/front_web/dist/* /dist && bin/true"]
 
   # webhook-server:
@@ -48,3 +48,4 @@ services:
   #   restart: always
 volumes:
   mariadb_data:
+  front_app:
