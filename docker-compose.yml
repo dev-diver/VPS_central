@@ -35,7 +35,7 @@ services:
     container_name: vacation_promotion_client
     volumes:
       - ./dist:/dist
-    command: ["sh", "-c", "mv /app/front_web/dist /dist && tail -f /dev/null"]
+    command: ["sh", "-c", "mv /app/front_web/dist/* /dist && tail -f /dev/null"]
 
   # webhook-server:
   #   image: devdiver/webhook:latest
