@@ -20,7 +20,6 @@ services:
     container_name: vacation_promotion_server
     depends_on:
       - mariadb
-      - client
     volumes:
       - ./config:/app/backend/config
       - ./database:/app/backend/database
@@ -36,7 +35,7 @@ services:
     container_name: vacation_promotion_client
     volumes:
       - ./front_web:/dist
-    command: ["sh", "-c", "cp -r /app/front_web/dist/. /dist && bin/true"]
+    command: ["sh", "-c", "cp -r /app/front_web/dist/. /dist && tail -f /dev/null"]
 
   # webhook-server:
   #   image: devdiver/webhook:latest
