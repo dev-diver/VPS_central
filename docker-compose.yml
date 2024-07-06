@@ -34,7 +34,7 @@ services:
     image: devdiver/vacation_promotion_client:latest
     container_name: vacation_promotion_client
     volumes:
-      - front_web:/app/front_web/dist
+      - front_web:/dist
 
   # webhook-server:
   #   image: devdiver/webhook:latest
