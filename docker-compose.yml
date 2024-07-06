@@ -20,6 +20,7 @@ services:
     container_name: vacation_promotion_server
     depends_on:
       - mariadb
+      - client
     volumes:
       - ./config:/app/backend/config
       - ./database:/app/backend/database
