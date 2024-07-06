@@ -1,7 +1,5 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import subprocess
-import os
-import json
 
 app = Flask(__name__)
 
@@ -10,7 +8,7 @@ def webhook():
     if request.method == 'POST':
 
         webhook_data = request.get_json()
-        print("Webhook received:", json.dumps(webhook_data, indent=4))
+        print("Webhook received:", webhook_data)
         
         # # 조건을 만족하지 않으면 조기 리턴
         # if not webhook_data or 'push_data' not in webhook_data:
@@ -20,25 +18,29 @@ def webhook():
         # if 'tag' not in push_data or not push_data['tag'] or 'media_type' not in push_data:
         #     return 'Ignored', 200
 
-        current_dir = os.path.dirname(os.path.realpath(__file__))
-        root_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-        script_path = os.path.join(root_dir, 'docker-compose-update.sh')
-        # Run the script to pull and restart the containers
-        
-        print(f"Webhook triggered at {current_dir}")
-        
-        # Run the script to pull and restart the containers
-        process = subprocess.run(['sh', script_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        
-        # Output stdout and stderr to console
-        print(process.stdout)
-        print(process.stderr)
-        
-        # Check for errors
-        if process.returncode != 0:
-            print(f"Script failed with return code {process.returncode}")
-        else:
-            print("Script executed successfully")
+        commands = [
+                "echo 'docker compose pull' && docker-compose pull",
+                "echo 'docker client stop' && docker-compose stop client",
+                "echo 'docker client rm' && docker-compose rm -f client",
+                "echo 'docker compose up' && docker-compose up -d"
+            ]
+
+        output = []
+        for command in commands:
+            try:
+                result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                output.append({
+                    'command': command,
+                    'output': result.stdout.decode(),
+                    'error': result.stderr.decode()
+                })
+            except subprocess.CalledProcessError as e:
+                return jsonify({
+                    'command': command,
+                    'output': e.stdout.decode(),
+                    'error': e.stderr.decode(),
+                    'returncode': e.returncode
+                }), 400
 
         return 'Success', 200
     else:
