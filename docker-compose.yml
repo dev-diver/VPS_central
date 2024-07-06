@@ -23,7 +23,7 @@ services:
     volumes:
       - ./config:/app/backend/config
       - ./database:/app/backend/database
-      - ./front_web:/app/dist
+      - ./dist:/app/dist
     ports:
       - "3000:3000"
     env_file:
@@ -34,8 +34,8 @@ services:
     image: devdiver/vacation_promotion_client:latest
     container_name: vacation_promotion_client
     volumes:
-      - ./front_web:/dist
-    command: ["sh", "-c", "cp -r /app/front_web/dist/. /dist && tail -f /dev/null"]
+      - ./dist:/dist
+    command: ["sh", "-c", "mv /app/front_web/dist /dist && tail -f /dev/null"]
 
   # webhook-server:
   #   image: devdiver/webhook:latest
