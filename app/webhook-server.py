@@ -19,9 +19,10 @@ def webhook():
         #     return 'Ignored', 200
 
         commands = [
+                "echo 'docker compose down' && docker compose down",
                 "echo 'docker compose pull' && docker compose pull",
-                "echo 'docker client stop' && docker compose stop client",
-                "echo 'docker client rm' && docker compose rm -f client",
+                # "echo 'docker client stop' && docker compose stop client",
+                # "echo 'docker client rm' && docker compose rm -f client",
                 "echo 'docker compose up' && docker compose up client -d"
             ]
 
