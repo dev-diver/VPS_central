@@ -21,8 +21,12 @@ services:
     depends_on:
       - client
     volumes:
-      - config:/app/backend/config
-      - database:/app/backend/database
+      - type: bind
+        source: ./config
+        target: /app/backend/config
+      - type: bind
+        source: ./database
+        target: /app/backend/database
       - front_app:/app/dist
     ports:
       - "3000:3000"
@@ -50,15 +54,3 @@ services:
 volumes:
   mariadb_data:
   front_app:
-  database:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./database
-  config:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./config
