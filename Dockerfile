@@ -24,4 +24,4 @@ EXPOSE 5000
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["python", "vps_central/app/webhook-server.py"]
+CMD ["python", "/vps_central/app/webhook-server.py"]
