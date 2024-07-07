@@ -1,7 +1,6 @@
 FROM python:3-slim-bookworm
-WORKDIR /app
 
-COPY . /vps_central/app
+COPY /app /vps_central/app
 
 # 필수 패키지 및 Docker CLI 설치
 RUN apt-get update && apt-get install -y \
