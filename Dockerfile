@@ -16,9 +16,10 @@ RUN apt-get update && apt-get install -y \
   apt-get install -y docker-ce docker-ce-cli && \
   rm -rf /var/lib/apt/lists/*
 
+RUN groupadd -g 999 docker && usermod -aG docker root
+
 # Flask 설치
 RUN pip install flask
-
 
 EXPOSE 5000
 
