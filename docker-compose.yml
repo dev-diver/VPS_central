@@ -45,8 +45,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./database/conf.d:/etc/mysql/conf.d
-      - database:/vps_central/database
-      - config:/vps_central/config
+      - type: bind
+        source: ./config
+        target: /vps_central/config
+      - type: bind
+        source: ./database
+        target: /vps_central/database
     ports:
       - "5000:5000"
     restart: always
