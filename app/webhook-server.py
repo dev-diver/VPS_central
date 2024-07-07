@@ -8,7 +8,7 @@ def webhook():
     if request.method == 'POST':
 
         webhook_data = request.get_json()
-        print("Webhook received:", webhook_data)
+        print("Webhook received:", webhook_data, flush=True)
         
         # # 조건을 만족하지 않으면 조기 리턴
         # if not webhook_data or 'push_data' not in webhook_data:
@@ -19,10 +19,10 @@ def webhook():
         #     return 'Ignored', 200
 
         commands = [
-                "echo 'docker compose pull' && docker-compose pull",
-                "echo 'docker client stop' && docker-compose stop client",
-                "echo 'docker client rm' && docker-compose rm -f client",
-                "echo 'docker compose up' && docker-compose up -d"
+                "echo 'docker compose pull' && docker compose pull",
+                "echo 'docker client stop' && docker compose stop client",
+                "echo 'docker client rm' && docker compose rm -f client",
+                "echo 'docker compose up' && docker compose up -d"
             ]
 
         output = []
