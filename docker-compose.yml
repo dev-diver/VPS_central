@@ -55,10 +55,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: ${PWD}/database
+      device: ./database
   config:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: ${PWD}/config
+      device: ./config
