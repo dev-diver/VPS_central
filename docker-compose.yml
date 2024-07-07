@@ -43,6 +43,7 @@ services:
     container_name: webhook_server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - .:/vps_central
     ports:
       - "5000:5000"
     restart: always

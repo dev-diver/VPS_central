@@ -1,7 +1,7 @@
 FROM python:3-slim-bookworm
 WORKDIR /app
 
-COPY . /app
+COPY . /vps_central/app
 
 # 필수 패키지 및 Docker CLI 설치
 RUN apt-get update && apt-get install -y \
@@ -25,4 +25,4 @@ EXPOSE 5000
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["python", "app/webhook-server.py"]
+CMD ["python", "vps_central/app/webhook-server.py"]

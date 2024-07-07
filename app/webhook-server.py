@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import subprocess
+import os
 
 app = Flask(__name__)
 
@@ -9,6 +10,8 @@ def webhook():
 
         webhook_data = request.get_json()
         print("Webhook received:", webhook_data, flush=True)
+
+        project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
         
         # # 조건을 만족하지 않으면 조기 리턴
         # if not webhook_data or 'push_data' not in webhook_data:
@@ -19,12 +22,10 @@ def webhook():
         #     return 'Ignored', 200
 
         commands = [
-                "echo 'docker compose down' && docker compose down -v",
-                "echo 'docker compose pull' && docker compose pull",
-                # "echo 'docker client stop' && docker compose stop client",
-                # "echo 'docker client rm' && docker compose rm -f client",
-                "echo 'docker compose up' && docker compose up client -d"
-            ]
+            f"echo 'docker compose down' && cd {project_dir} && docker compose down",
+            f"echo 'docker compose pull' && cd {project_dir} && docker compose pull",
+            f"echo 'docker compose up' && cd {project_dir} && docker compose up -d"
+        ]
 
         output = []
         for command in commands:
