@@ -1,7 +1,5 @@
 FROM python:3-slim-bookworm
 
-COPY /app/database /vps_central/app/database
-COPY /app /vps_central/app
 COPY /docker-compose.yml /vps_central/docker-compose.yml
 
 # 필수 패키지 및 Docker CLI 설치
