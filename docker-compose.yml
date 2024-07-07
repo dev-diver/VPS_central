@@ -26,8 +26,6 @@ services:
       - front_app:/app/dist
     ports:
       - "3000:3000"
-    env_file:
-      - ./database/.env
     restart: always
 
   client:
