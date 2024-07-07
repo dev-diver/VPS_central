@@ -23,6 +23,8 @@ RUN pip install flask
 
 EXPOSE 5000
 
+WORKDIR /vps_central
+
 ENV PYTHONUNBUFFERED=1
 
 CMD ["python", "/vps_central/app/webhook-server.py"]

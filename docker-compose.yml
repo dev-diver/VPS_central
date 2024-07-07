@@ -43,6 +43,7 @@ services:
       - ./database/conf.d:/etc/mysql/conf.d
       - ./database:/vps_central/database
       - ./config:/vps_central/config
+      - ./docker-compose.yml:/vps_central/docker-compose.yml
     ports:
       - "5000:5000"
     restart: always
