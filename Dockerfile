@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
   apt-get install -y docker-ce docker-ce-cli && \
   rm -rf /var/lib/apt/lists/*
 
-RUN groupadd docker && usermod -aG docker root
+RUN groupadd -f docker && usermod -aG docker root
 
 # Flask 설치
 RUN pip install flask
