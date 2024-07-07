@@ -21,8 +21,8 @@ services:
     depends_on:
       - client
     volumes:
-      - ./config:/app/backend/config
-      - ./database:/app/backend/database
+      - config:/app/backend/config
+      - database:/app/backend/database
       - front_app:/app/dist
     ports:
       - "3000:3000"
@@ -41,8 +41,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./database/conf.d:/etc/mysql/conf.d
-      - ./database:/vps_central/database
-      - ./config:/vps_central/config
+      - database:/vps_central/database
+      - config:/vps_central/config
     ports:
       - "5000:5000"
     restart: always
@@ -50,3 +50,15 @@ services:
 volumes:
   mariadb_data:
   front_app:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/database
+  config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}/config
