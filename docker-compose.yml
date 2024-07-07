@@ -12,26 +12,13 @@ services:
       - ./database/initd.d:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
-    command: ["sh", "-c", "
-      # 볼륨 마운트 기다리기
-      while [ ! -f /etc/mysql/conf.d/*.cnf ]; do
-        echo 'Waiting for volume to be mounted...'
-        sleep 2
-      done
-
-      # 초기화 작업
-      chown -R mysql:mysql /var/lib/mysql
-      chmod 644 /etc/mysql/conf.d/*.cnf || true
-
-      # 기본 엔트리포인트 실행
-      exec docker-entrypoint.sh mysqld"]
+    entrypoint: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql && chmod 644 /etc/mysql/conf.d/*.cnf && docker-entrypoint.sh mysqld"]
     restart: always
 
   server:
     image: devdiver/vacation_promotion_server:latest
     container_name: vacation_promotion_server
     depends_on:
-      - mariadb
       - client
     volumes:
       - ./config:/app/backend/config
