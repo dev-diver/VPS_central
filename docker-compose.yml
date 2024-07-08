@@ -18,8 +18,8 @@ services:
   server:
     image: devdiver/vacation_promotion_server:latest
     container_name: vacation_promotion_server
-    env_file:
-      - ./.env
+    environment:
+      - HOST_IP=${HOST_IP}
     depends_on:
       - client
     volumes:
@@ -28,7 +28,6 @@ services:
       - front_app:/app/dist
     ports:
       - "3000:3000"
-    network_mode: "host"
     restart: always
 
   client:
