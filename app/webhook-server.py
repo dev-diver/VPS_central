@@ -25,6 +25,7 @@ def webhook():
             return 'Ignored', 200
         
         name = repository['repo_name']
+        commands = []
         if name == 'devdiver/vacation_promotion_client':
 
             commands = [
