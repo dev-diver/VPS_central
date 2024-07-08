@@ -15,9 +15,11 @@ export HOST_IP=$HOST_IP
 
 DOCKER=$(which docker)
 echo "도커 경로: $DOCKER"
-
 export DOCKER=$DOCKER
 
+DOCKER_COMPOSE=$(which docker-compose)
+echo "도커 컴포즈 경로: $DOCKER_COMPOSE"
+export DOCKER_COMPOSE=$DOCKER_COMPOSE
 
 echo "도커 컴포즈 시작"
 PROJECT_DIR=$(dirname $(realpath $0))
