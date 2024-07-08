@@ -1,8 +1,5 @@
 FROM python:3-slim-bookworm
 
-COPY /app /vps_central/app
-COPY /docker-compose.yml /vps_central/docker-compose.yml
-
 # 필수 패키지 및 Docker CLI 설치
 RUN apt-get update && apt-get install -y \
   ca-certificates \
@@ -20,6 +17,9 @@ RUN groupadd -f docker && usermod -aG docker root
 
 # Flask 설치
 RUN pip install flask
+
+COPY /app /vps_central/app
+COPY /docker-compose.yml /vps_central/docker-compose.yml
 
 EXPOSE 5000
 
