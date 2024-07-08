@@ -20,8 +20,6 @@ services:
     container_name: vacation_promotion_server
     environment:
       - HOST_IP=${HOST_IP}
-    depends_on:
-      - client
     volumes:
       - config:/app/backend/config
       - database:/app/backend/database
