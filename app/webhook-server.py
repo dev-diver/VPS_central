@@ -21,10 +21,11 @@ def webhook():
             return 'Ignored', 200
         
         repository = webhook_data['repository']
-        if 'name' not in repository or not repository['name']:
+        if 'repo_name' not in repository or not repository['repo_name']:
             return 'Ignored', 200
         
-        if repository['name'] != 'devdiver/vacation_promotion_client':
+        name = repository['repo_name']
+        if name != 'devdiver/vacation_promotion_client':
 
             commands = [
                 f"echo 'docker client stop' && cd {project_dir} && docker compose stop client",
@@ -32,7 +33,7 @@ def webhook():
                 f"echo 'docker compose pull' && cd {project_dir} && docker compose pull client",
                 f"echo 'docker compose up' && cd {project_dir} && docker compose up client -d",
             ]
-        elif repository['name'] == 'devdiver/vacation_promotion_server':
+        elif name == 'devdiver/vacation_promotion_server':
             commands = [
                 f"echo 'docker compose pull' && cd {project_dir} && docker compose pull server",
                 f"echo 'docker compose up' && cd {project_dir} && docker compose up server -d",
