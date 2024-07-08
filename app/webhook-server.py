@@ -7,7 +7,7 @@ import socket
 
 app = Flask(__name__)
 
-CORS(app)
+CORS(app, supports_credentials=True)
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 log_file = os.path.join(project_dir, 'webhook.log')
