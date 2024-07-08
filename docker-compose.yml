@@ -18,6 +18,8 @@ services:
   server:
     image: devdiver/vacation_promotion_server:latest
     container_name: vacation_promotion_server
+    env_file:
+      - ./.env
     depends_on:
       - client
     volumes:
