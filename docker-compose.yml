@@ -22,8 +22,8 @@ services:
     #   - HOST_IP=${HOST_IP}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - config:/app/backend/config
-      - database:/app/backend/database
+      - ./config:/app/backend/config
+      - ./database:/app/backend/database
       - front_app:/app/dist
       - /docker-compose.yml:/app/backend/docker-compose.yml
     ports:
@@ -38,30 +38,30 @@ services:
       - front_app:/dist
     command: ["sh", "-c", "rm -rf /dist/* && mv /app/front_web/dist/* /dist && bin/true"]
 
-  webhook-server:
-    image: devdiver/webhook:latest
-    container_name: webhook_server
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./database/conf.d:/etc/mysql/conf.d
-      - config:/vps_central/config
-      - database:/vps_central/database
-    ports:
-      - "5000:5000"
-    restart: always
+  # webhook-server:
+  #   image: devdiver/webhook:latest
+  #   container_name: webhook_server
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - ./database/conf.d:/etc/mysql/conf.d
+  #     - ./config:/vps_central/config
+  #     - ./database:/vps_central/database
+  #   ports:
+  #     - "5000:5000"
+  #   restart: always
 
 volumes:
   mariadb_data:
   front_app:
-  database:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./database
-  config:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./config
+  # database:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: ./database
+  # config:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     o: bind
+  #     device: ./config
