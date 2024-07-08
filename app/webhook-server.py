@@ -16,20 +16,27 @@ def webhook():
         webhook_data = request.get_json()
         logging.info(f"Webhook received: {webhook_data}")
 
-        # # 조건을 만족하지 않으면 조기 리턴
-        # if not webhook_data or 'push_data' not in webhook_data:
-        #     return 'Ignored', 200
+        push_data = webhook_data['push_data']
+        if 'tag' not in push_data or not push_data['tag'] or 'media_type' not in push_data:
+            return 'Ignored', 200
+        
+        repository = webhook_data['repository']
+        if 'name' not in repository or not repository['name']:
+            return 'Ignored', 200
+        
+        if repository['name'] != 'devdiver/vacation_promotion_client':
 
-        # push_data = webhook_data['push_data']
-        # if 'tag' not in push_data or not push_data['tag'] or 'media_type' not in push_data:
-        #     return 'Ignored', 200
-
-        commands = [
-            f"echo 'docker client stop' && cd {project_dir} && docker compose stop client",
-            f"echo 'docker client rm' && cd {project_dir} && docker compose rm -f client",
-            f"echo 'docker compose pull' && cd {project_dir} && docker compose pull",
-            f"echo 'docker compose up' && cd {project_dir} && docker compose up client server -d",
-        ]
+            commands = [
+                f"echo 'docker client stop' && cd {project_dir} && docker compose stop client",
+                f"echo 'docker client rm' && cd {project_dir} && docker compose rm -f client",
+                f"echo 'docker compose pull' && cd {project_dir} && docker compose pull client",
+                f"echo 'docker compose up' && cd {project_dir} && docker compose up client -d",
+            ]
+        elif repository['name'] == 'devdiver/vacation_promotion_server':
+            commands = [
+                f"echo 'docker compose pull' && cd {project_dir} && docker compose pull server",
+                f"echo 'docker compose up' && cd {project_dir} && docker compose up server -d",
+            ]
 
         output = []
         for command in commands:
