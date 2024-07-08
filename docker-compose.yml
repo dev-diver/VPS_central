@@ -28,6 +28,7 @@ services:
       - front_app:/app/dist
     ports:
       - "3000:3000"
+    network_mode: "host"
     restart: always
 
   client:
