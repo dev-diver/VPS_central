@@ -29,6 +29,8 @@ def webhook():
             f"echo 'docker client rm' && cd {project_dir} && docker compose rm -f client",
             f"echo 'docker compose pull' && cd {project_dir} && docker compose pull",
             f"echo 'docker compose up' && cd {project_dir} && docker compose up client server -d"
+            f"echo 'docker compose up' && cd {project_dir} && docker compose up webhook server -d"
+
         ]
 
         output = []
