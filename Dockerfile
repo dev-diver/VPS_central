@@ -17,6 +17,7 @@ RUN groupadd -f docker && usermod -aG docker root
 
 # Flask 설치
 RUN pip install flask
+RUN pip install flask-cors
 
 COPY /app /vps_central/app
 COPY /docker-compose.yml /vps_central/docker-compose.yml
