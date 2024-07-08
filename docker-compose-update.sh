@@ -13,6 +13,12 @@ echo "Host IP: $HOST_IP"
 # Export the IP address as an environment variable
 export HOST_IP=$HOST_IP
 
+DOCKER=$(which docker)
+echo "도커 경로: $DOCKER"
+
+export DOCKER=$DOCKER
+
+
 echo "도커 컴포즈 시작"
 PROJECT_DIR=$(dirname $(realpath $0))
 
