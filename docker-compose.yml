@@ -25,6 +25,7 @@ services:
       - config:/app/backend/config
       - database:/app/backend/database
       - front_app:/app/dist
+      - docker-compose.yml/:/app/backend/docker-compose.yml
     ports:
       - "3000:3000"
     restart: always
