@@ -38,6 +38,9 @@ docker-compose stop client || { echo "docker-compose stop 실패"; exit 1; }
 echo "docker client rm"
 docker-compose rm -f client || { echo "docker-compose rm 실패"; exit 1; }
 
+echo "docker container prune"
+docker container prune -f || { echo "docker container prune 실패"; exit 1; }
+
 echo "docker compose up"
 docker-compose up -d  || { echo "docker-compose up 실패"; exit 1; }
 
