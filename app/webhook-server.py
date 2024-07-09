@@ -36,12 +36,12 @@ def webhook():
                 f"echo 'docker client stop' && cd {project_dir} && docker compose stop client",
                 f"echo 'docker client rm' && cd {project_dir} && docker compose rm -f client",
                 f"echo 'docker compose pull' && cd {project_dir} && docker compose pull client",
-                f"echo 'docker compose up' && cd {project_dir} && docker compose up client -d",
+                f"echo 'docker compose up' && cd {project_dir} && docker compose up -d client ",
             ]
         elif name == 'devdiver/vacation_promotion_server':
             commands = [
                 f"echo 'docker compose pull' && cd {project_dir} && docker compose pull server",
-                f"echo 'docker compose up' && cd {project_dir} && docker compose up server -d",
+                f"echo 'docker compose up' && cd {project_dir} && docker compose up -d server",
             ]
         else:
             return 'Ignored', 200
