@@ -1,23 +1,33 @@
-version: '3.8'
-
+net:
+    driver: bridge
 services:
   mariadb:
     image: mariadb:10.2
     container_name: mariadb
-    env_file:
-      - ./database/.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_USER}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - DATABASE_HOST=mariadb
+      - DATABASE_USER=${DB_USER}
+      - DATABASE_PASSWORD=${DB_PASS}
+      - DATABASE_NAME=${DB_NAME}
+      - DATABASE_PORT=${DB_PORT}
     volumes:
       - mariadb_data:/var/lib/mysql
       - ./database/conf.d:/etc/mysql/conf.d
       - ./database/initd.d:/docker-entrypoint-initdb.d
     ports:
-      - "3306:3306"
+      - "3307:${DB_PORT}"
+    networks:
+      - net
     entrypoint: ["sh", "-c", "chown -R mysql:mysql /var/lib/mysql && chmod 644 /etc/mysql/conf.d/*.cnf && docker-entrypoint.sh mysqld"]
     restart: always
 
   server:
     image: devdiver/vacation_promotion_server:latest
-    container_name: vacation_promotion_server
+    container_name: server
     environment:
       - HOST_IP=${HOST_IP}
     volumes:
@@ -27,19 +37,21 @@ services:
       - front_app:/dist
     ports:
       - "3000:3000"
+    networks:
+      - net
     restart: always
     privileged: true
 
   client:
     image: devdiver/vacation_promotion_client:latest
-    container_name: vacation_promotion_client
+    container_name: client
     volumes:
       - front_app:/dist
     command: ["sh", "-c", "rm -rf /dist/* && mv /app/front_web/dist/* /dist && bin/true"]
 
   webhook-server:
     image: devdiver/webhook:latest
-    container_name: webhook_server
+    container_name: webhook
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./database/conf.d:/etc/mysql/conf.d
@@ -47,6 +59,8 @@ services:
       - database:/vps_central/database
     ports:
       - "5000:5000"
+    networks:
+      - net
     restart: always
 
 volumes:
