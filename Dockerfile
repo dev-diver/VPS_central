@@ -16,14 +16,15 @@ RUN apt-get update && apt-get install -y \
 RUN groupadd -f docker && usermod -aG docker root
 
 # Flask 설치
-RUN pip install flask
-RUN pip install flask-cors
 
-COPY /app /vps_central/app
+COPY /webhook /vps_central/webhook
+WORKDIR /webhook
+RUN pip install -r requirements.txt
+
 COPY /docker-compose.yml /vps_central/docker-compose.yml
 
 EXPOSE 5000
 
 WORKDIR /vps_central
 
-CMD ["python", "/vps_central/app/webhook-server.py"]
+CMD ["python", "/vps_central/webhook/server.py"]

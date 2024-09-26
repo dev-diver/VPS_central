@@ -28,12 +28,9 @@ services:
   server:
     image: devdiver/vacation_promotion_server:latest
     container_name: server
-    environment:
-      - HOST_IP=${HOST_IP}
+    env_file:
+      - /.env
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - config:/vps_central/config
-      - database:/vps_central/database
       - front_app:/dist
     ports:
       - "3000:3000"
@@ -50,13 +47,10 @@ services:
     command: ["sh", "-c", "rm -rf /dist/* && mv /app/front_web/dist/* /dist && bin/true"]
 
   webhook-server:
-    image: devdiver/webhook:latest
+    build: .
     container_name: webhook
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./database/conf.d:/etc/mysql/conf.d
-      - config:/vps_central/config
-      - database:/vps_central/database
     ports:
       - "5000:5000"
     networks:
@@ -66,15 +60,3 @@ services:
 volumes:
   mariadb_data:
   front_app:
-  database:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./database
-  config:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ./config

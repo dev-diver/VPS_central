@@ -5,23 +5,7 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-HOST_IP=$(curl -s http://ifconfig.me)
-
-# Echo the IP address for verification
-echo "Host IP: $HOST_IP"
-
-# Export the IP address as an environment variable
-export HOST_IP=$HOST_IP
-
-DOCKER=$(which docker)
-echo "도커 경로: $DOCKER"
-export DOCKER=$DOCKER
-
-DOCKER_COMPOSE=$(which docker-compose)
-echo "도커 컴포즈 경로: $DOCKER_COMPOSE"
-export DOCKER_COMPOSE=$DOCKER_COMPOSE
-
-echo "도커 컴포즈 시작"
+echo "프로젝트 최신화 시작"
 PROJECT_DIR=$(dirname $(realpath $0))
 
 cd $PROJECT_DIR

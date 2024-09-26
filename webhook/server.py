@@ -3,7 +3,6 @@ import subprocess
 import os
 import logging
 from flask_cors import CORS
-import socket
 
 app = Flask(__name__)
 
@@ -38,6 +37,7 @@ def webhook():
                 f"echo 'docker compose pull' && cd {project_dir} && docker compose pull client",
                 f"echo 'docker compose up' && cd {project_dir} && docker compose up -d client ",
             ]
+            
         elif name == 'devdiver/vacation_promotion_server':
             commands = [
                 f"echo 'docker compose pull' && cd {project_dir} && docker compose pull server",
