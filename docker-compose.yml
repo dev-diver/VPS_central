@@ -1,4 +1,5 @@
-net:
+networks:
+  net:
     driver: bridge
 services:
   mariadb:
@@ -29,7 +30,7 @@ services:
     image: devdiver/vacation_promotion_server:latest
     container_name: server
     env_file:
-      - /.env
+      - .env
     volumes:
       - front_app:/dist
     ports:
