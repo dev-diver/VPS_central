@@ -12,25 +12,15 @@ project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 log_file = os.path.join(project_dir, 'webhook.log')
 logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
-@app.route('/webhook', methods=['POST'])
+@app.route('/update', methods=['POST'])
 def webhook():
     if request.method == 'POST':
 
-        webhook_data = request.get_json()
-        logging.info(f"Webhook received: {webhook_data}")
-
-        push_data = webhook_data['push_data']
-        if 'tag' not in push_data or not push_data['tag'] or 'media_type' not in push_data:
-            return 'Ignored', 200
-        
-        repository = webhook_data['repository']
-        if 'repo_name' not in repository or not repository['repo_name']:
-            return 'Ignored', 200
-        
-        name = repository['repo_name']
+        update_data = request.get_json()
+        logging.info(f"Webhook received: {update_data}")
+        name = update_data['service_name']
         commands = []
-        if name == 'devdiver/vacation_promotion_client':
-
+        if name == 'client':
             commands = [
                 f"echo 'docker client stop' && cd {project_dir} && docker compose stop client",
                 f"echo 'docker client rm' && cd {project_dir} && docker compose rm -f client",
@@ -38,7 +28,7 @@ def webhook():
                 f"echo 'docker compose up' && cd {project_dir} && docker compose up -d client ",
             ]
             
-        elif name == 'devdiver/vacation_promotion_server':
+        elif name == 'server':
             commands = [
                 f"echo 'docker compose pull' && cd {project_dir} && docker compose pull server",
                 f"echo 'docker compose up' && cd {project_dir} && docker compose up -d server",
