@@ -27,7 +27,8 @@ services:
     restart: always
 
   server:
-    image: devdiver/vacation_promotion_server:latest
+    build: 
+      context: ../VPS_backend
     container_name: server
     env_file:
       - .env
@@ -41,15 +42,16 @@ services:
     privileged: true
 
   client:
-    image: devdiver/vacation_promotion_client:latest
+    build: 
+      context: ../VPS_client
     container_name: client
     volumes:
       - front_app:/dist
-    command: ["sh", "-c", "rm -rf /dist/* && mv /app/front_web/dist/* /dist && bin/true"]
+    command: ["sh", "-c", "rm -rf /dist/* && mv /app/front_web/dist/* /dist"]
 
-  webhook-server:
+  update-server:
     build: .
-    container_name: webhook
+    container_name: update
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:

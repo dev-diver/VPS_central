@@ -1,0 +1,6 @@
+services:
+  server:
+    image: devdiver/vacation_promotion_server:latest
+
+  client:
+    image: devdiver/vacation_promotion_client:latest
