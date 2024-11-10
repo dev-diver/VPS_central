@@ -34,6 +34,7 @@ services:
       - .env
     volumes:
       - front_app:/dist
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "3000:3000"
     networks:
@@ -51,7 +52,7 @@ services:
 
   update-server:
     build: .
-    container_name: update
+    container_name: update-server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:

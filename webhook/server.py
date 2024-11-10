@@ -13,7 +13,7 @@ log_file = os.path.join(project_dir, 'webhook.log')
 logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
 @app.route('/update', methods=['POST'])
-def webhook():
+def update():
     if request.method == 'POST':
 
         update_data = request.get_json()
