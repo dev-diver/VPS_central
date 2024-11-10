@@ -55,6 +55,7 @@ services:
     container_name: update-server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./webhook/log:/vps_central/log
     ports:
       - "5000:5000"
     networks:

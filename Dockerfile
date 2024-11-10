@@ -18,13 +18,16 @@ RUN groupadd -f docker && usermod -aG docker root
 # Flask 설치
 
 COPY /webhook /vps_central/webhook
+
 WORKDIR /vps_central/webhook
 RUN pip install -r requirements.txt
 
 COPY /docker-compose.yml /vps_central/docker-compose.yml
+COPY /docker-compose.override.yml /vps_central/docker-compose.override.yml
+COPY /.env /vps_central
 
 EXPOSE 5000
 
 WORKDIR /vps_central
 
-CMD ["python", "/vps_central/webhook/server.py"]
+CMD ["python", "-u", "/vps_central/webhook/server.py"]
