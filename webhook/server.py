@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-log_file = os.path.join(project_dir, 'webhook.log')
+log_file = os.path.join(project_dir,'log','webhook.log')
 logging.basicConfig(filename=log_file, level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 
 @app.route('/update', methods=['POST'])
@@ -64,4 +64,4 @@ def update():
         return 'Method Not Allowed', 405
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=True)
